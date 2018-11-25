@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(hello)
 set(SRCFILE ${CMAKE_CURRENT_SOURCE_DIR}/src/hello.cxx)
 add_library(hello SHARED ${SRCFILE})
+add_library(hello::hello ALIAS hello)
 target_include_directories(hello PUBLIC 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
@@ -30,6 +31,4 @@ install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/hello
 
 
 export(EXPORT hello-target FILE ${CMAKE_CURRENT_BINARY_DIR}/cmake/hello/HelloTargets.cmake NAMESPACE  hello::)
-#export(PACKAGE hello)
-include("${CMAKE_CURRENT_BINARY_DIR}/cmake/hello/HelloTargets.cmake")
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
